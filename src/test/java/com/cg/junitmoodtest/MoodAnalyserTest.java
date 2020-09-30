@@ -1,19 +1,28 @@
 package com.cg.junitmoodtest;
 
+import static org.junit.Assert.*;
+
 import org.junit.*;
 
 public class MoodAnalyserTest {
 	@Test
-	public void givenMessage_whenSad_ShouldReturnSad() {
-		MoodAnalyser moodAnalyser = new MoodAnalyser("This is Sad message");
-		String mood = moodAnalyser.analyseMood();
-		Assert.assertEquals("SAD", mood);
+	public void givenMessage_whenNullMood_ShouldThrowException() {
+		try {
+			MoodAnalyser moodAnalyser = new MoodAnalyser(null);
+			String mood = moodAnalyser.analyseMood();
+		} catch (MoodAnalysisException e) {
+			Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.type);
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Test
-	public void givenMessage_whenNotSad_ShouldReturnHappy() {
-		MoodAnalyser moodAnalyser = new MoodAnalyser(null);
-		String mood = moodAnalyser.analyseMood();
-		Assert.assertEquals("HAPPY", mood);
+	public void givenMessage_whenNoMood_ShouldThrowException() {
+		try {
+			MoodAnalyser moodAnalyser = new MoodAnalyser("");
+			String mood = moodAnalyser.analyseMood();
+		} catch (MoodAnalysisException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
